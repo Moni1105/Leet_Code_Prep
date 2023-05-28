@@ -11,6 +11,9 @@ public class avgSalary {
     {
          sum+= salary[i];
 
+
+         
+
     }
       return sum/(salary.length-2); 
         
