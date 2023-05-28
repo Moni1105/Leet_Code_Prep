@@ -9,9 +9,7 @@ int res= Math.abs(arr[0]-arr[1]);
             if(res!=Math.abs(arr[i]-arr[i-1]))
             {              
                 return false;
-
-                
-            }
+                     }
     
         }
       return true; 
