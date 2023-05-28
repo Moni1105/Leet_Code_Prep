@@ -7,6 +7,9 @@ public class Bits {
        count+= value.charAt(i)=='1'?1:0;
         }
         return count;
+    
+    
+    
     }
     public static void main(String[] args)throws java.lang.Exception 
     {
