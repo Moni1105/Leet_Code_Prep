@@ -151,19 +151,92 @@ public class ListNode {
             }
             return slow;
         }
-        
+        public ListNode removeElements(ListNode head, int val) {
+            ListNode start =new ListNode(0);
+            start.next=head;
+            ListNode current=start;
+            ListNode prev= start;
+            
+
+            while(current!=null){
+                ListNode temp=current.next;
+                if(current.val==val){
+                    prev.next=temp;
+                    current=temp;
+                    
+                }else{
+                    prev=current;
+                    current=temp;
+                }
+                
+            }            
+            return start.next;       
+        }
+
+        public ListNode deleteDuplicates(ListNode head) {
+            ListNode current= head;
+        while(current.next!=null){
+           if(current.val == current.next.val){
+            current.next=current.next.next;
+           }else{
+            current= current.next;
+           }
+        }
+        return head;
+        }
+
+
+        public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+            ListNode start = new ListNode(-1);
+            ListNode prev=start;
+            ListNode l1=list1;
+            ListNode l2=list2;
+
+            while(l1!=null&&l2!=null){
+
+                if(l1.val<=l2.val){
+                    prev.next=l1;
+                    prev= prev.next;
+                    l1=l1.next;
+
+
+                }else{
+                     prev.next=l2;
+                    prev= prev.next;
+                    l2=l2.next;
+                }
+
+            }
+
+            if(l1==null){
+                prev.next=l2;
+            }else if(l2==null){
+                prev.next=l1;
+            }
+           
+    return   start.next;  
+
+} 
 
 
 
     public static void main(String args[]){
-        ListNode as= new ListNode(1);
-        ListNode as1= new ListNode(2);
-        ListNode as2= new ListNode(2);
-        ListNode as3= new ListNode(1);
+        ListNode as= new ListNode(2);
+      /*   ListNode as1= new ListNode(1);
+        ListNode as2= new ListNode(4);
+        ListNode as3= new ListNode(7);
         as.next=as1;
         as1.next=as2;
         as2.next=as3;
-        as3.next=null;
+        as3.next=null;*/
+        ListNode ps= new ListNode(1);
+       /*  ListNode ps1= new ListNode(2);
+        ListNode ps2= new ListNode(3);
+        ListNode ps3= new ListNode(6);
+        ps.next=ps1;
+        ps1.next=ps2;
+        ps2.next=ps3;
+        ps3.next=null;*/
       
         /*   ListNode as= new ListNode(1);
         ListNode as1= new ListNode(2);
@@ -200,9 +273,13 @@ public class ListNode {
       //System.out.println(dec);
      // ListNode del=  as.deleteNodes(as,3,1);
       //printing the linkedlist
-      boolean k=as.isPalindrome(as);
-      System.out.println(k);
-        ListNode current =as;
+      //boolean k=as.isPalindrome(as);
+      //System.out.println(k);
+     //ListNode rev= as.reverseList(as);
+     //ListNode rev= as.removeElements(as,1);
+     //ListNode rev= as.deleteDuplicates(as);
+     ListNode res=ps.mergeTwoLists(as, ps);
+        ListNode current =res;
         while(current!=null)
         {
             System.out.println(current.val);
@@ -241,4 +318,56 @@ public class ListNode {
             }else{
                 return false;
             }
+ */
+/*
+ *  ListNode start = new ListNode(0);
+            ListNode prev=start;
+            ListNode NextNode=start;
+            ListNode current1=list1;
+            ListNode current2=list2;   
+            if(current1!=null&&current2!=null){
+            while(current1!=null&&current2!=null){
+                 ListNode temp1 =current1.next;
+                 ListNode temp2 =current2.next;
+                if(current1.val==current2.val){
+                    current1.next=current2;
+                    current2.next=null;
+                    prev=current1;
+                    current1=temp1;
+                    current2=temp2;   
+                    NextNode.next=prev;
+                NextNode=NextNode.next.next;     
+        
+                }else if(current1.val<current2.val){
+                       current1.next=null;
+                        prev=current1;
+                        current1=temp1;
+                        NextNode.next=prev;
+                NextNode=NextNode.next;    
+        
+                    
+                }else { //if(current2.val<current1.val)
+                    current2.next=null;
+                    prev=current2;
+                    current2=temp2;
+                    NextNode.next=prev;
+                NextNode=NextNode.next;    
+        
+                }
+                
+            }}else{
+                if(current1==null){
+                    start.next=current2;
+                }else{
+                    start.next=current1; 
+                }
+            }
+
+               return start.next;
+        
+        }
+        
+
+
+
  */
