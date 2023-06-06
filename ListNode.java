@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class ListNode {
         int val;
     ListNode next;
@@ -64,7 +66,8 @@ public class ListNode {
         }
 
         public int getDecimalValue(ListNode head) {
-            String binaryValue="";
+         /*  using Integer.parseInt()
+           String binaryValue="";
             ListNode current= head;
             while(current!=null){
                 binaryValue+=current.val;
@@ -72,9 +75,28 @@ public class ListNode {
             }
 
             int decimalval= Integer.parseInt(binaryValue,2);
-            return decimalval;
+            return decimalval;*/
+
+            /* using bitwise operator
+             *  int num = head.val;
+        while (head.next != null) {
+            num = (num << 1) | head.next.val;
+            head = head.next;    
+        }
+        return num;
+             */
+            /**********classical arithmetic********** */
+            int num = head.val;
+            while (head.next != null) {
+                num = num * 2 + head.next.val;
+                head = head.next;    
+            }
+            return num;
         
         }
+   
+           
+    
 
        /*  public boolean isPalindrome(ListNode head) {
             String palindrome="";
@@ -216,20 +238,49 @@ public class ListNode {
            
     return   start.next;  
 
+}
+public boolean hasCycle(ListNode head) {
+//using extra space
+  /*   HashSet<ListNode> hs= new HashSet<ListNode>();    
+    while(head!=null){
+       // System.out.println(head);
+        if(hs.contains(head)){
+           return true;
+        }else{
+             hs.add(head);
+            head=head.next;
+        } 
+        
+    }
+    return false;*/
+
+//using slow and fast runner(floyd's tortoise and hare)
+ListNode slow=head;
+ListNode fast=head;
+while(fast!=null ||fast.next!=null){
+slow=slow.next;
+fast= fast.next.next;
+if(slow==fast){
+    return true;
+}
+}
+return false;
+
+
 } 
 
 
 
     public static void main(String args[]){
-        ListNode as= new ListNode(2);
-      /*   ListNode as1= new ListNode(1);
-        ListNode as2= new ListNode(4);
-        ListNode as3= new ListNode(7);
+        ListNode as= new ListNode(0);
+         ListNode as1= new ListNode(1);
+        ListNode as2= new ListNode(0);
+        ListNode as3= new ListNode(1);
         as.next=as1;
         as1.next=as2;
         as2.next=as3;
-        as3.next=null;*/
-        ListNode ps= new ListNode(1);
+        as3.next=null;
+      //  ListNode ps= new ListNode(1);
        /*  ListNode ps1= new ListNode(2);
         ListNode ps2= new ListNode(3);
         ListNode ps3= new ListNode(6);
@@ -273,13 +324,14 @@ public class ListNode {
       //System.out.println(dec);
      // ListNode del=  as.deleteNodes(as,3,1);
       //printing the linkedlist
-      //boolean k=as.isPalindrome(as);
-      //System.out.println(k);
+      boolean k=as.isPalindrome(as);
+      System.out.println(k);
      //ListNode rev= as.reverseList(as);
      //ListNode rev= as.removeElements(as,1);
      //ListNode rev= as.deleteDuplicates(as);
-     ListNode res=ps.mergeTwoLists(as, ps);
-        ListNode current =res;
+    // ListNode res=ps.mergeTwoLists(as, ps);
+   // boolean res=as.hasCycle(as);
+        ListNode current =as;
         while(current!=null)
         {
             System.out.println(current.val);
