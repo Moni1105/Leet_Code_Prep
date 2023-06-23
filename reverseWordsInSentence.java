@@ -2,20 +2,24 @@ import java.lang.*;
 
 class reverseWordsInSentence {
     public String reverseWords(String s) {
-
-        String[] sa =s.split(" ");
-        String snew="";
-        for(int i=0; i<sa.length;i++){
-            char[] c= new char[sa[i].length()];
-            int k=0;
-            while(k<sa[i].length()){
-                c[k]=sa[i].charAt(sa[i].length()-1-k);
-                k++;
+        int lastSpaceIndex = -1;
+        char[] chArray = s.toCharArray();
+        int len = s.length();
+        for (int strIndex = 0; strIndex <= len; strIndex++) {
+            if (strIndex == len || chArray[strIndex] == ' ') {
+                int startIndex = lastSpaceIndex + 1;
+                int endIndex = strIndex - 1;
+                while (startIndex < endIndex) {
+                    char temp = chArray[startIndex];
+                    chArray[startIndex] = chArray[endIndex];
+                    chArray[endIndex] = temp;
+                    startIndex++;
+                    endIndex--;
+                }
+                lastSpaceIndex = strIndex;
             }
-            snew+=sa[i].valueOf(c)+" ";
-            
         }
-    return snew.substring(0,snew.length()-1);
+        return new String(chArray);
     }
     public static void main(String[] args){
         reverseWordsInSentence rs = new reverseWordsInSentence();
