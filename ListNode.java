@@ -268,18 +268,48 @@ return false;
 
 
 } 
+   public int pairSum(ListNode head) {
+    ListNode slow=head;
+    ListNode fast=head;
+  
+    while(fast!=null&&fast.next!=null){
+        slow=slow.next;
+        fast= fast.next.next;
+    }
+      ListNode prev=null;
+      ListNode curr=slow;
+      while(curr!=null ){
+        ListNode temp=curr.next;
+        curr.next=prev;
+        prev=curr;
+        curr=temp;
+      }
+      
+      int max=0;
+      while(prev!=null){
+        int twin=prev.val+head.val;
+        prev=prev.next;
+        head=head.next;
+        max=Math.max(max,twin);
+      }
+    return max;
+  }
+
+   
 
 
 
     public static void main(String args[]){
-        ListNode as= new ListNode(0);
-         ListNode as1= new ListNode(1);
-        ListNode as2= new ListNode(0);
-        ListNode as3= new ListNode(1);
+        ListNode as= new ListNode(1);
+         ListNode as1= new ListNode(2);
+        ListNode as2= new ListNode(3);
+        ListNode as3= new ListNode(4);
+        ListNode as4= new ListNode(5);
         as.next=as1;
         as1.next=as2;
         as2.next=as3;
-        as3.next=null;
+        as3.next=as4;
+        as4.next=null;
       //  ListNode ps= new ListNode(1);
        /*  ListNode ps1= new ListNode(2);
         ListNode ps2= new ListNode(3);
@@ -293,7 +323,7 @@ return false;
         ListNode as1= new ListNode(2);
         ListNode as2= new ListNode(3);
         ListNode as3= new ListNode(4);
-        ListNode as4= new ListNode(5);
+        
         ListNode as5= new ListNode(6);
         ListNode as6= new ListNode(7);
         ListNode as7= new ListNode(8);
@@ -324,13 +354,18 @@ return false;
       //System.out.println(dec);
      // ListNode del=  as.deleteNodes(as,3,1);
       //printing the linkedlist
-      boolean k=as.isPalindrome(as);
-      System.out.println(k);
+     // boolean k=as.isPalindrome(as);
+      //System.out.println(k);
      //ListNode rev= as.reverseList(as);
      //ListNode rev= as.removeElements(as,1);
      //ListNode rev= as.deleteDuplicates(as);
     // ListNode res=ps.mergeTwoLists(as, ps);
    // boolean res=as.hasCycle(as);
+
+  //int dec=  as.pairSum(as);
+      //System.out.println(dec);
+     
+
         ListNode current =as;
         while(current!=null)
         {
