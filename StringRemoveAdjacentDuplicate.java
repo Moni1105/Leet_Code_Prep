@@ -1,22 +1,33 @@
+import java.util.Stack;
+
 class StringRemoveAdjacentDuplicate {
     public String removeDuplicates(String s) {
-        String S1="";
-       /*  int i=1;
-        while(i<s.length()-1)
+        Stack<Character> sk= new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if(sk.empty()){
+
+                sk.push(s.charAt(i));
+            }else{
+                //char top=sk.peek();
+                if(sk.peek()==s.charAt(i)){
+                    sk.pop();
+                }else{
+                    sk.push(s.charAt(i));
+                }
+            }  
+        }
+       
+        if(sk.empty()!=true)
         {
-            if(s.charAt(i-1)!=s.charAt(i)){
-                S1+=s.charAt(i-1)+s.charAt(i);
-            }
-            i=i+2;
-
-        }*/
-
-       /*  for(int i=1;i<=s.length()-1;i++){
-            if(s.charAt(i-1)!=s.charAt(i)){
-                S1+=s.charAt(i);
-            }
-        }*/
-       return S1; 
+             StringBuilder sb=new StringBuilder();
+          while(sk.empty()!=true){
+            sb.append(sk.pop());
+        }
+        sb.reverse();
+        return sb.toString();
+        }
+        
+       return ""; 
     }
     public static void main(String args[]){
         StringRemoveAdjacentDuplicate as = new StringRemoveAdjacentDuplicate();
