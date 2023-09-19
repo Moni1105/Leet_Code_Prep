@@ -1,5 +1,6 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -152,7 +153,7 @@ class TreeNode{
           return  (p.val==q.val)&&isSameTree(p.left,q.left)&& isSameTree(p.right,q.right);
     
     }
-    public  ArrayList < ArrayList < Integer >> zigzagLevelOrder(TreeNode root) {
+ /*    public  ArrayList < ArrayList < Integer >> zigzagLevelOrder(TreeNode root) {
         Queue < TreeNode > que = new ArrayDeque< TreeNode > ();
         ArrayList < ArrayList < Integer >> wrapList = new ArrayList < > ();
         if (root == null) return wrapList;
@@ -172,6 +173,34 @@ class TreeNode{
             wrapList.add(subList);
         }
         return wrapList;
+    }*/
+
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        Queue<TreeNode> zigque= new ArrayDeque<TreeNode>();
+        List<List<Integer>> ML= new ArrayList<>();
+        zigque.add(root);
+        boolean flag=false;
+        while(!zigque.isEmpty()){     
+        int zigquesize=zigque.size();
+        List<Integer> SL= new ArrayList<>();
+        for(int i=0;i<zigquesize;i++){
+            TreeNode currNode= zigque.poll();
+            SL.add(currNode.val);
+            if(currNode.left!=null) zigque.add(currNode.left);
+            if(currNode.right!=null) zigque.add(currNode.right);
+
+        }
+        if(flag==false){
+            ML.add(SL);
+        }else{
+            Collections.reverse(SL);
+            ML.add(SL);
+        }
+        flag=!flag;
+        
+        }
+        return ML;         
     }
         
     
@@ -314,6 +343,59 @@ return output;*/
         return al1;
     }
 
+    public boolean isLeaf(TreeNode root){
+        return root.left==null&&root.right==null;
+    }
+    public void addleftBoundary(List<Integer> res, TreeNode root){
+        TreeNode cur=root.left;
+        while(cur!=null){
+        if(isLeaf(cur)==false) res.add(cur.val);
+        if(cur.left!=null) cur=cur.left;
+        else cur=cur.right;}
+    }
+     
+    public void addLeaves(List<Integer> res,TreeNode root){
+        if(isLeaf(root)==true){
+            res.add(root.val);
+           return;
+        }
+        if(root.left!=null) addLeaves(res, root.left);
+        if(root.right!=null)addLeaves(res, root.right);
+    }
+
+    public void addrightBoundary(List<Integer> res,TreeNode root){
+        TreeNode cur= root.right;
+      Stack<Integer> temp= new Stack<>();
+      while(cur!=null){
+        if(isLeaf(cur)==false){
+            temp.add(cur.val);
+        }
+        if(cur.right!=null)cur=cur.right;
+        else cur=cur.left;
+    }
+     while(!temp.isEmpty()){
+        res.add(temp.pop());
+     }
+    }
+
+
+
+    public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+
+        ArrayList<Integer> al= new ArrayList<>();
+        if(root==null){
+            return al;
+        }
+       if(isLeaf(root)==false){
+        al.add(root.val);
+       }
+       addleftBoundary(al,root);
+       addLeaves(al, root);
+       addrightBoundary(al,root);
+       return al;
+  
+    }
+
     
 
     public static void main(String args[]){
@@ -353,7 +435,8 @@ return output;*/
         tt5.right=tt6;*/
 
        // t1.dfs(t1);
-       System.out.print(root.PostDFSIterationArrayList(root));
+       System.out.print(root.boundaryOfBinaryTree(root));
+       //System.out.print(root.PostDFSIterationArrayList(root));
        //System.out.print(root.DFSIteration(root));
        //System.out.print(root.zigzagLevelOrder(root));
        //System.out.print(root.isSameTree(root,rroot));
