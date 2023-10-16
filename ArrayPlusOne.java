@@ -27,7 +27,7 @@ class ArrayPlusOne {
     }
     public static void main (String args[]){
         ArrayPlusOne as= new ArrayPlusOne();
-        int[] n= new int[]{9,9,9};
+        int[] n= new int[]{};
 
        System.out.println(as.plusOne(n));
 
